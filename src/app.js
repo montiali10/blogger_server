@@ -4,6 +4,7 @@ const createError = require('http-errors');
 const morgan = require('morgan');
 const path = require('path');
 const csrf = require('csurf');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
@@ -11,6 +12,10 @@ const passport = require('passport');
 const SQLiteStore = require('connect-sqlite3')(session);
 
 const app = express();
+
+app.use(cors({
+    origin: '*'
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

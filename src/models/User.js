@@ -1,29 +1,15 @@
-const { PrismaClient } = require('@prisma/client')
-const prisma = new PrismaClient()
+const prisma = require('../configs/db');
 
-
-async function getUser(id) {
+const getUser = async (id) => {
     try {
-        return await prisma.user.findFirstOrThrow(id);
+        const user = await prisma.user.findFirst(id);
+        return user;
     } catch (error) {
+        return null;
         console.log("[USER]",error);
     }
 }
 
-async function registerUser(user) {
-    try {
-        return await prisma.user.create({
-            data: {
-                
-            }
-        });
-    } catch (error) {
-        console.log("[USER]",error);
-    }
-}
-
-
-module.exports = [
-    getUser,
-    registerUser
-];
+module.exports = {
+    getUser
+};

@@ -1,11 +1,14 @@
 const router = require('express').Router();
-const passport = require('passport');
+const { getUser } = require('../models/User');
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     if (!req.isAuthenticated()) {
         return res.json({ message: "unautherized" });
     }
-    return res.json({ message: "It works!"});
+    const user = await getUser(7);
+    return res.json(user);
 });
+
+router.use('/blog', require('./blog/blog.route'));
 
 module.exports = router;
