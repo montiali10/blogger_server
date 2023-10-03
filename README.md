@@ -22,5 +22,8 @@ if you need a database interface, Prisma can provide you with one through:
     npx prisma studio
 ```
 
-
+## 3. Run the server
+```
+    npm run dev
+```
 
