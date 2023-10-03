@@ -42,6 +42,22 @@ const postBlog = async (values) => {
     }
 }
 
+const editBlog = async (blog) => {
+    try {
+        await prisma.blog.update({
+            where: { id: blog.id },
+            data: {
+                title: blog.title,
+                content: blog.content,
+                summary: blog.summary
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        throw new Error('Something went wrong.');
+    }
+}
+
 const deleteBlog = async (id) => {
     try {
         await prisma.blog.delete({ where: {
@@ -59,5 +75,6 @@ module.exports = {
     getBlog,
     getBlogs,
     postBlog,
+    editBlog,
     deleteBlog
 };

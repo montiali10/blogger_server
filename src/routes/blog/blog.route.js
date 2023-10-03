@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const prisma = require("../../configs/db");
-const { postBlog, getBlog, getBlogs, deleteBlog } = require("../../models/Blog");
+const { postBlog, getBlog, editBlog, deleteBlog } = require("../../models/Blog");
 const { validate } = require("../../validation/validate");
 const {
   createBlogValidationRules,
@@ -147,7 +147,25 @@ router.post(
   }
 );
 
-router.put("/update", async (req, res) => {});
+router.put("/:id",
+    updateBlogValidationRules(),
+    validate,
+    async (req, res) => {
+    const values = req.body;
+    const id = parseInt(req.params.id);
+    try {
+        await editBlog({ 
+            id: id, 
+            title: values.title,
+            content: values.content,
+            summary: values.summary
+        }); 
+        return res.status(200).json({message: "updated"});
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({ message: "something went wrong." });
+    }
+});
 
 router.delete('/:id', async (req, res) => {
     try {

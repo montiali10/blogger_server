@@ -15,8 +15,8 @@ model Blog {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String   @db.VarChar(255)
-  summary   String?
-  content   String?
+  summary   String?  @db.Text
+  content   String?  @db.Text
   published Boolean  @default(false)
   author    User     @relation(fields: [authorId], references: [id])
   authorId  Int

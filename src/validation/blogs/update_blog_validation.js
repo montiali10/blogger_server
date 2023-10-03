@@ -1,4 +1,4 @@
-const { body } = require('express-validator')
+const { body, param } = require('express-validator')
 
 const updateBlogValidationRules = () => {
   return [
@@ -23,11 +23,11 @@ const updateBlogValidationRules = () => {
         .withMessage('Summary must be a text.')
         .isLength({ min: 5 })
         .withMessage('Summary should be at least 5 characters.'),
-    body('autherId')
+    param('id')
         .notEmpty()
-        .withMessage('Summary cannot be empty.')
+        .withMessage('autherId cannot be empty.')
         .isInt()    
-        .withMessage('Summary must be an integer.')
+        .withMessage('AutherId must be an integer.')
   ]
 }
 
