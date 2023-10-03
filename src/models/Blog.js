@@ -9,6 +9,19 @@ const getBlog = async (id) => {
     }
 }
 
+const getBlogs = async () => {
+    try {
+        const blogs = await prisma.blog.findMany({
+            orderBy: {
+                createdAt: "desc"
+            }
+        });
+        return blogs;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
 const postBlog = async (values) => {
     try {
         await prisma.blog.create({
@@ -29,8 +42,22 @@ const postBlog = async (values) => {
     }
 }
 
+const deleteBlog = async (id) => {
+    try {
+        await prisma.blog.delete({ where: {
+            id: id
+        }});
+        return;
+    } catch (error) {
+        console.log(error);
+        throw new Error(error);
+    }
+}
+
 
 module.exports = {
     getBlog,
-    postBlog
+    getBlogs,
+    postBlog,
+    deleteBlog
 };
